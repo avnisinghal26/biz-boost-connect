@@ -1,6 +1,5 @@
 
 import type { Config } from "tailwindcss";
-
 export default {
 	darkMode: ["class"],
 	content: [
@@ -54,7 +53,7 @@ export default {
 					foreground: 'hsl(var(--card-foreground))'
 				},
 				// BizConnect theme colors
-				bizconnect: {
+				Bizconnect: {
 					orange: '#FF7A00',
 					'light-orange': '#FFB066',
 					black: '#121212',
