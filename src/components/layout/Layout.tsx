@@ -12,7 +12,7 @@ const Layout = ({ children }: LayoutProps) => {
   const isAuthPage = location.pathname === "/";
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background text-foreground">
       {!isAuthPage && <NavBar />}
       <main className={`container mx-auto px-4 ${!isAuthPage ? "pt-4 pb-20 md:pt-20 md:pb-4" : ""}`}>
         {children}

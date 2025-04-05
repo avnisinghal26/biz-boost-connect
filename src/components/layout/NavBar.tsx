@@ -5,8 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Home, Search, MessageSquare, PlusSquare, User, LogOut, Bell } from "lucide-react";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import { ThemeToggle } from "@/components/theme/theme-toggle";
 
 interface AuthData {
   isLoggedIn: boolean;
@@ -42,7 +43,7 @@ const NavBar = () => {
   }
 
   return (
-    <nav className="fixed bottom-0 md:top-0 md:bottom-auto w-full bg-white border-t md:border-b md:border-t-0 border-gray-200 z-10">
+    <nav className="fixed bottom-0 md:top-0 md:bottom-auto w-full bg-background border-t md:border-b md:border-t-0 border-border z-10">
       <div className="container flex justify-between items-center h-16 px-4 md:px-6">
         <div className="hidden md:flex items-center">
           <Link to="/feed" className="flex items-center">
@@ -51,14 +52,25 @@ const NavBar = () => {
         </div>
 
         <div className="flex justify-around md:justify-center w-full md:w-auto space-x-1 md:space-x-2">
-          <NavItem icon={Home} to="/feed" active={location.pathname === "/feed"} label="Feed" />
-          <NavItem icon={Search} to="/explore" active={location.pathname === "/explore"} label="Explore" />
-          <NavItem icon={PlusSquare} to="/create" active={location.pathname === "/create"} label="Post" />
-          <NavItem icon={MessageSquare} to="/messages" active={location.pathname === "/messages"} label="Messages" />
-          <NavItem icon={Bell} to="/notifications" active={location.pathname === "/notifications"} label="Notifications" />
+          {auth.accountType === "personal" ? (
+            <>
+              <NavItem icon={Home} to="/feed" active={location.pathname === "/feed"} label="Feed" />
+              <NavItem icon={Search} to="/explore" active={location.pathname === "/explore"} label="Explore" />
+              <NavItem icon={MessageSquare} to="/messages" active={location.pathname === "/messages"} label="Messages" />
+              <NavItem icon={Bell} to="/notifications" active={location.pathname === "/notifications"} label="Notifications" />
+            </>
+          ) : (
+            <>
+              <NavItem icon={Home} to="/business-dashboard" active={location.pathname === "/business-dashboard"} label="Dashboard" />
+              <NavItem icon={PlusSquare} to="/create" active={location.pathname === "/create"} label="Post" />
+              <NavItem icon={MessageSquare} to="/messages" active={location.pathname === "/messages"} label="Messages" />
+              <NavItem icon={Bell} to="/notifications" active={location.pathname === "/notifications"} label="Notifications" />
+            </>
+          )}
         </div>
 
-        <div className="hidden md:block">
+        <div className="hidden md:flex items-center space-x-2">
+          <ThemeToggle />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="rounded-full" size="icon">
@@ -101,7 +113,7 @@ const NavItem = ({ icon: Icon, to, active, label }: NavItemProps) => {
       className={`flex flex-col items-center justify-center p-2 rounded-md transition-colors ${
         active 
           ? "text-bizconnect-orange" 
-          : "text-gray-500 hover:text-bizconnect-orange"
+          : "text-muted-foreground hover:text-bizconnect-orange"
       }`}
     >
       <Icon className="h-6 w-6" />

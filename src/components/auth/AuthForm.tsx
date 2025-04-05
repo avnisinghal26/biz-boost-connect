@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 
 const AuthForm = () => {
@@ -35,12 +35,17 @@ const AuthForm = () => {
         avatar: "https://i.pravatar.cc/150?img=32"
       }));
       
-      navigate("/feed");
+      // Redirect based on account type
+      if (accountType === "business") {
+        navigate("/business-dashboard");
+      } else {
+        navigate("/feed");
+      }
     }, 800);
   };
 
   return (
-    <div className="w-full max-w-md mx-auto space-y-6 animate-in-custom">
+    <div className="w-full max-w-md mx-auto space-y-6">
       <Tabs defaultValue="login" className="w-full">
         <TabsList className="grid w-full grid-cols-2 mb-6">
           <TabsTrigger value="login">Login</TabsTrigger>

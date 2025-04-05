@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthForm from "@/components/auth/AuthForm";
+import { ThemeToggle } from "@/components/theme/theme-toggle";
 
 const AuthPage = () => {
   const navigate = useNavigate();
@@ -12,7 +13,11 @@ const AuthPage = () => {
       if (storedAuth) {
         const authData = JSON.parse(storedAuth);
         if (authData.isLoggedIn) {
-          navigate("/feed");
+          if (authData.accountType === "business") {
+            navigate("/business-dashboard");
+          } else {
+            navigate("/feed");
+          }
         }
       }
     };
@@ -25,8 +30,11 @@ const AuthPage = () => {
       {/* Brand Section */}
       <div className="bg-bizconnect-black md:w-1/2 p-8 flex flex-col justify-center items-center">
         <div className="max-w-md mx-auto text-center">
+          <div className="absolute top-4 right-4">
+            <ThemeToggle />
+          </div>
           <h1 className="text-4xl md:text-5xl font-bold text-bizconnect-orange mb-4">BizConnect</h1>
-          <p className="text-white text-xl mb-8">
+          <p className="text-gray-300 text-xl mb-8">
             Connect, Collaborate, and Grow your Small Business
           </p>
           <div className="space-y-6 text-left text-gray-300">
