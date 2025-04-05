@@ -13,6 +13,7 @@ import BusinessProfilePage from "./pages/BusinessProfilePage";
 import ProfilePage from "./pages/ProfilePage";
 import CreatePostPage from "./pages/CreatePostPage";
 import MessagesPage from "./pages/MessagesPage";
+import NotificationsPage from "./pages/NotificationsPage";
 import NotFound from "./pages/NotFound";
 import BusinessDashboard from "./pages/BusinessDashboard";
 import React from "react";
@@ -36,6 +37,7 @@ const App = () => (
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/create" element={<CreatePostPage />} />
               <Route path="/messages" element={<MessagesPage />} />
+              <Route path="/notifications" element={<NotificationsPage />} />
               <Route path="/business-dashboard" element={<BusinessDashboard />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

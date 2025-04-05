@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search, Filter } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Post, { PostData } from "@/components/feed/Post";
+import { Card, CardContent } from "@/components/ui/card";
 
 // Sample data for trending hashtags
 const trendingTags = [
@@ -79,6 +80,7 @@ const explorePosts: PostData[] = [
 const ExplorePage = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
+  const [userType, setUserType] = useState<"personal" | "business">("personal");
   
   useEffect(() => {
     const checkAuth = () => {
@@ -91,6 +93,8 @@ const ExplorePage = () => {
       const authData = JSON.parse(storedAuth);
       if (!authData.isLoggedIn) {
         navigate("/");
+      } else {
+        setUserType(authData.accountType);
       }
     };
     
@@ -107,50 +111,52 @@ const ExplorePage = () => {
     <div className="max-w-xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">Explore</h1>
       
-      {/* Search Bar */}
-      <div className="mb-6">
+      {/* Search Bar with hover effect */}
+      <div className="mb-6 group">
         <form onSubmit={handleSearch} className="flex gap-2">
           <div className="relative flex-1">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
+            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 group-hover:text-bizconnect-orange transition-colors duration-300" />
             <Input
               type="search"
               placeholder="Search businesses, products, or hashtags"
-              className="pl-9"
+              className="pl-9 transition-all duration-300 hover:border-bizconnect-orange focus-visible:ring-bizconnect-orange"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <Button type="submit" className="bg-bizconnect-orange hover:bg-bizconnect-orange/90">
+          <Button type="submit" className="bg-bizconnect-orange hover:bg-bizconnect-orange/90 btn-hover-slide">
             Search
           </Button>
         </form>
       </div>
       
-      {/* Trending Tags */}
-      <div className="mb-6">
-        <h2 className="text-lg font-medium mb-2">Trending Tags</h2>
-        <div className="flex flex-wrap gap-2">
-          {trendingTags.map((tag, i) => (
-            <Badge 
-              key={i} 
-              className="bg-bizconnect-light-orange/20 hover:bg-bizconnect-light-orange/30 text-bizconnect-black cursor-pointer"
-            >
-              #{tag}
-            </Badge>
-          ))}
-        </div>
-      </div>
+      {/* Trending Tags with hover effects */}
+      <Card className="mb-6 hover:shadow-md transition-shadow">
+        <CardContent className="p-4">
+          <h2 className="text-lg font-medium mb-2">Trending Tags</h2>
+          <div className="flex flex-wrap gap-2">
+            {trendingTags.map((tag, i) => (
+              <Badge 
+                key={i} 
+                className="bg-bizconnect-light-orange/20 hover:bg-bizconnect-light-orange/40 text-foreground hover:text-bizconnect-orange cursor-pointer transition-all duration-300 transform hover:-translate-y-0.5"
+              >
+                #{tag}
+              </Badge>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
       
-      {/* Content Tabs */}
+      {/* Content Tabs with hover effects */}
       <Tabs defaultValue="discover">
         <div className="flex justify-between items-center mb-4">
           <TabsList>
-            <TabsTrigger value="discover">Discover</TabsTrigger>
-            <TabsTrigger value="businesses">Businesses</TabsTrigger>
-            <TabsTrigger value="products">Products</TabsTrigger>
+            <TabsTrigger value="discover" className="data-[state=active]:bg-bizconnect-orange data-[state=active]:text-white transition-all">Discover</TabsTrigger>
+            <TabsTrigger value="businesses" className="data-[state=active]:bg-bizconnect-orange data-[state=active]:text-white transition-all">Businesses</TabsTrigger>
+            <TabsTrigger value="products" className="data-[state=active]:bg-bizconnect-orange data-[state=active]:text-white transition-all">Products</TabsTrigger>
           </TabsList>
           
-          <Button variant="ghost" size="sm">
+          <Button variant="outline" size="sm" className="hover:bg-secondary/80 transition-colors">
             <Filter className="h-4 w-4 mr-1" />
             Filter
           </Button>
@@ -165,17 +171,21 @@ const ExplorePage = () => {
         </TabsContent>
         
         <TabsContent value="businesses" className="mt-0">
-          <div className="bg-gray-50 rounded-md p-6 text-center">
-            <h3 className="font-medium">Businesses Directory Coming Soon</h3>
-            <p className="text-gray-500 mt-2">Browse and connect with small businesses in your area and specific industries.</p>
-          </div>
+          <Card className="animated-border hover:shadow-md transition-shadow duration-300">
+            <CardContent className="p-6 text-center">
+              <h3 className="font-medium text-lg">Businesses Directory Coming Soon</h3>
+              <p className="text-muted-foreground mt-2">Browse and connect with small businesses in your area and specific industries.</p>
+            </CardContent>
+          </Card>
         </TabsContent>
         
         <TabsContent value="products" className="mt-0">
-          <div className="bg-gray-50 rounded-md p-6 text-center">
-            <h3 className="font-medium">Product Marketplace Coming Soon</h3>
-            <p className="text-gray-500 mt-2">Browse products from various small businesses all in one place.</p>
-          </div>
+          <Card className="animated-border hover:shadow-md transition-shadow duration-300">
+            <CardContent className="p-6 text-center">
+              <h3 className="font-medium text-lg">Product Marketplace Coming Soon</h3>
+              <p className="text-muted-foreground mt-2">Browse products from various small businesses all in one place.</p>
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>

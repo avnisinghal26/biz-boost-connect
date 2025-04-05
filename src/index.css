@@ -75,4 +75,103 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-secondary;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/40 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/60;
+  }
+}
+
+@layer components {
+  /* Card hover effects */
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-md;
+  }
+  
+  /* Button hover effects */
+  .btn-hover-slide {
+    @apply relative overflow-hidden;
+  }
+  
+  .btn-hover-slide::after {
+    content: '';
+    @apply absolute bg-white/10 w-full h-full top-0 left-0 -translate-x-full skew-x-12 transition-transform duration-300;
+  }
+  
+  .btn-hover-slide:hover::after {
+    @apply transform translate-x-0;
+  }
+  
+  /* Text link hover underline effect */
+  .hover-underline {
+    @apply relative;
+  }
+  
+  .hover-underline::after {
+    content: '';
+    @apply absolute left-0 bottom-0 w-0 h-0.5 bg-primary transition-all duration-300;
+  }
+  
+  .hover-underline:hover::after {
+    @apply w-full;
+  }
+  
+  /* Card with shadow on hover */
+  .shadow-custom {
+    @apply transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/10;
+  }
+}
+
+@layer utilities {
+  /* Gradient text */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-bizconnect-orange to-yellow-500;
+  }
+  
+  /* Glass effect */
+  .glass-effect {
+    @apply bg-background/50 backdrop-blur-md border border-white/10;
+  }
+  
+  /* Animated border */
+  .animated-border {
+    @apply relative;
+  }
+  
+  .animated-border::before {
+    content: '';
+    @apply absolute inset-0 p-[2px] rounded-md bg-gradient-to-r from-bizconnect-orange via-yellow-500 to-bizconnect-orange bg-[length:400%_400%];
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    animation: border-animate 4s linear infinite;
+  }
+  
+  @keyframes border-animate {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  /* Fade in animation */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
 }
