@@ -13,7 +13,9 @@ import ProfilePage from "./pages/ProfilePage";
 import CreatePostPage from "./pages/CreatePostPage";
 import MessagesPage from "./pages/MessagesPage";
 import NotFound from "./pages/NotFound";
+import Index from "./pages/Index";
 
+// Create a new client
 const queryClient = new QueryClient();
 
 const App = () => (
