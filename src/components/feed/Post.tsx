@@ -75,17 +75,17 @@ const Post = ({ post }: PostProps) => {
   };
 
   return (
-    <Card className="mb-6 overflow-hidden shadow-custom hover:border-border/80 transition-all duration-300">
+    <Card className="mb-6 overflow-hidden shadow-custom hover:border-primary/20 transition-all duration-300 bg-card">
       <CardHeader className="p-4 pb-0">
         <div className="flex items-center space-x-3">
           <Link to={`/business/${post.username}`} className="hover:opacity-90 transition-opacity">
-            <Avatar className="ring-2 ring-transparent hover:ring-primary/20 transition-all duration-300">
+            <Avatar className="ring-2 ring-primary/20 hover:ring-primary/40 transition-all duration-300">
               <AvatarImage src={post.avatar} alt={post.businessName} />
               <AvatarFallback>{post.businessName[0]}</AvatarFallback>
             </Avatar>
           </Link>
           <div className="flex-1">
-            <Link to={`/business/${post.username}`} className="font-semibold hover-underline group transition-colors">
+            <Link to={`/business/${post.username}`} className="font-semibold hover-underline group transition-colors hover:text-primary">
               {post.businessName}
             </Link>
             <p className="text-sm text-muted-foreground">@{post.username} · {post.timestamp}</p>
@@ -105,12 +105,12 @@ const Post = ({ post }: PostProps) => {
               alt="Post content" 
               className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
         )}
         
         {post.product && (
-          <div className="bg-secondary/30 rounded-md p-3 mb-3 border border-border hover:bg-secondary/50 transition-colors">
+          <div className="bg-secondary/50 rounded-md p-3 mb-3 border border-border/60 hover:bg-secondary/70 transition-colors">
             <div className="flex justify-between items-center">
               <div>
                 <h4 className="font-medium">{post.product.name}</h4>
